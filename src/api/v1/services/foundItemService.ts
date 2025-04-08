@@ -1,5 +1,16 @@
-import { foundItems } from '../../../foundItems';
 import { v4 as uuid } from 'uuid';
+
+export const foundItems = [
+  {
+    id: '1',
+    name: 'USB Drive',
+    category: 'electronics',
+    location: 'Cafeteria',
+    description: '16GB black Kingston',
+    dateFound: '2024-03-22',
+  },
+];
+
 
 export const getAll = () => foundItems;
 

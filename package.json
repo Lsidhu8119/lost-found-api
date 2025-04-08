@@ -1,20 +1,24 @@
 {
   "name": "lost-found-api",
   "version": "1.0.0",
-  "description": "��#\u0000 \u0000l\u0000o\u0000s\u0000t\u0000-\u0000f\u0000o\u0000u\u0000n\u0000d\u0000-\u0000a\u0000p\u0000i\u0000\r\u0000 \u0000",
-  "main": "index.js",
+  "description": "Lost & Found API for Red River College",
+  "main": "dist/server.js",
+  "type": "commonjs",
   "scripts": {
+    "dev": "ts-node-dev --respawn src/server.ts",
     "start": "tsc && node dist/server.js",
+    "build": "tsc",
+    "lint": "eslint ./src --ext .ts",
+    "lint:fix": "eslint ./src --ext .ts --fix",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Lsidhu8119/lost-found-api.git"
+    "url": "https://github.com/Lsidhu8119/lost-found-api.git"
   },
   "keywords": [],
-  "author": "",
+  "author": "Lovedeep Sidhu",
   "license": "ISC",
-  "type": "commonjs",
   "bugs": {
     "url": "https://github.com/Lsidhu8119/lost-found-api/issues"
   },
@@ -35,7 +39,13 @@
     "@types/helmet": "^0.0.48",
     "@types/joi": "^17.2.2",
     "@types/node": "^22.14.0",
+    "@types/swagger-jsdoc": "^6.0.4",
     "@types/swagger-ui-express": "^4.1.8",
-    "@types/uuid": "^10.0.0"
+    "@types/uuid": "^10.0.0",
+    "@typescript-eslint/eslint-plugin": "^8.29.1",
+    "@typescript-eslint/parser": "^8.29.1",
+    "eslint": "^9.24.0",
+    "ts-node-dev": "^2.0.0",
+    "typescript": "^5.3.3"
   }
 }
