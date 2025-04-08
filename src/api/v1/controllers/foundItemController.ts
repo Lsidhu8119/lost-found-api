@@ -6,18 +6,26 @@ export const getAllFoundItems = (_req: Request, res: Response) => {
 };
 
 export const createFoundItem = (req: Request, res: Response) => {
-  const item = service.create(req.body);
-  res.status(201).json(item);
+  service.create(req.body);
+  res.status(201).json({
+    message: 'Found item reported successfully',
+  });
 };
 
 export const updateFoundItem = (req: Request, res: Response) => {
   const item = service.update(req.params.id, req.body);
-  if (item) res.json(item);
-  else res.status(404).json({ message: 'Item not found' });
+  if (item) {
+    res.json({ message: 'Found item updated successfully' });
+  } else {
+    res.status(404).json({ message: 'Found item not found with the given ID' });
+  }
 };
 
 export const deleteFoundItem = (req: Request, res: Response) => {
   const success = service.remove(req.params.id);
-  if (success) res.json({ message: 'Deleted' });
-  else res.status(404).json({ message: 'Item not found' });
+  if (success) {
+    res.json({ message: 'Found item deleted successfully' });
+  } else {
+    res.status(404).json({ message: 'Found item not found with the given ID' });
+  }
 };
