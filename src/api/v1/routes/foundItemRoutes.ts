@@ -25,6 +25,21 @@ const router = express.Router();
  *     responses:
  *       200:
  *         description: A list of found items
+ *         content:
+ *           application/json:
+ *             example:
+ *               - id: "1"
+ *                 name: "Asus Laptop"
+ *                 category: "electronics"
+ *                 location: "Library"
+ *                 description: "Asus laptop with a black logo and keyboard cover"
+ *                 dateFound: "2025-04-08"
+ *               - id: "2"
+ *                 name: "iPhone 12"
+ *                 category: "electronics"
+ *                 location: "Cafeteria"
+ *                 description: "Black iPhone 12 with cracked back and red case"
+ *                 dateFound: "2025-04-10"
  */
 router.get('/', getAllFoundItems);
 
@@ -53,9 +68,19 @@ router.get('/', getAllFoundItems);
  *               dateFound:
  *                 type: string
  *                 format: date
+ *           example:
+ *             name: "Lakers Cap"
+ *             category: "clothing"
+ *             location: "Princess building 3rd Floor"
+ *             description: "Black Cap with lakers Logo in front"
+ *             dateFound: "2025-04-10"
  *     responses:
  *       201:
- *         description: Found item created
+ *         description: Found item reported successfully
+ *         content:
+ *           application/json:
+ *             example:
+ *               message: "Found item reported successfully"
  */
 router.post('/', validateFoundItem, createFoundItem);
 
@@ -71,6 +96,7 @@ router.post('/', validateFoundItem, createFoundItem);
  *         required: true
  *         schema:
  *           type: string
+ *         description: ID of the found item to update
  *     requestBody:
  *       required: true
  *       content:
@@ -89,9 +115,25 @@ router.post('/', validateFoundItem, createFoundItem);
  *               dateFound:
  *                 type: string
  *                 format: date
+ *           example:
+ *             name: "iPhone 12"
+ *             category: "electronics"
+ *             location: "Main Hall"
+ *             description: "Updated - iPhone 12 cracked from back, found near Student Association"
+ *             dateFound: "2025-04-11"
  *     responses:
  *       200:
- *         description: Found item updated
+ *         description: Found item updated successfully
+ *         content:
+ *           application/json:
+ *             example:
+ *               message: "Found item updated successfully"
+ *       404:
+ *         description: Item not found
+ *         content:
+ *           application/json:
+ *             example:
+ *               message: "Found item not found with the given ID"
  */
 router.put('/:id', validateFoundItem, updateFoundItem);
 
@@ -107,9 +149,20 @@ router.put('/:id', validateFoundItem, updateFoundItem);
  *         required: true
  *         schema:
  *           type: string
+ *         description: ID of the found item to delete
  *     responses:
  *       200:
- *         description: Found item deleted
+ *         description: Found item deleted successfully
+ *         content:
+ *           application/json:
+ *             example:
+ *               message: "Found item deleted successfully"
+ *       404:
+ *         description: Not found
+ *         content:
+ *           application/json:
+ *             example:
+ *               message: "Found item not found with the given ID"
  */
 router.delete('/:id', deleteFoundItem);
 

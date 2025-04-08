@@ -4,11 +4,22 @@ export const claims = [
   {
     id: '1',
     itemId: 'abc123',
-    claimantName: 'Lovedeep Sidhu',
-    claimantEmail: 'Lovedeepsidhu@gmail.com',
-    justification: 'I can identify the engraving inside',
-    dateClaimed: '2024-03-27',
+    claimantName: 'subhpreet',
+    claimantEmail: 'Subhpreet@gmail.com',
+    justification: 'I can identify the Asus Laptop with black logo and my favourite sticker',
+    dateClaimed: '2025-04-10',
+
   },
+
+  {
+    id: '2',
+    itemId: 'abc999',
+    claimantName: 'Amandeep Singh',
+    claimantEmail: 'amandeepSingh@gmail.com',
+    justification: 'I can identify my black iPhone 12 with a cracked back and a red cover',
+    dateClaimed: '2025-04-11'
+  }
+  
 ];
 
 

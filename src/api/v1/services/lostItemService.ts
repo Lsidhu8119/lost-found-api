@@ -3,11 +3,11 @@ import { v4 as uuid } from 'uuid';
 export const lostItems = [
   {
     id: '1',
-    name: 'Red Backpack',
-    category: 'bags',
-    location: 'Library',
-    description: 'Lost near bookshelf',
-    dateReported: '2024-03-25',
+    name: 'Black Asus Vivobook',
+    category: 'electronics',
+    location: 'Tim hortons',
+    description: 'Lost at Tim Hortons while texting on mobile',
+    dateReported: '2025-03-25',
   },
 ];
 

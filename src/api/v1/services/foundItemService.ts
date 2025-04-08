@@ -3,12 +3,20 @@ import { v4 as uuid } from 'uuid';
 export const foundItems = [
   {
     id: '1',
-    name: 'USB Drive',
+    name: 'Black Asus Vivobook',
     category: 'electronics',
-    location: 'Cafeteria',
-    description: '16GB black Kingston',
-    dateFound: '2024-03-22',
+    location: 'Tim Hortons',
+    description: 'Asus Vivobook v15',
+    dateFound: '2025-04-05',
   },
+  {
+    id: '2',
+    name: 'iPhone 12',
+    category: 'electronics',
+    location: "Cafeteria",
+    description: "Black iPhone 12 with cracked back and red case",
+    dateFound: "2025-04-10"
+  }
 ];
 
 
