@@ -17,5 +17,17 @@
   "bugs": {
     "url": "https://github.com/Lsidhu8119/lost-found-api/issues"
   },
-  "homepage": "https://github.com/Lsidhu8119/lost-found-api#readme"
+  "homepage": "https://github.com/Lsidhu8119/lost-found-api#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
+    "express": "^5.1.0",
+    "helmet": "^8.1.0"
+  },
+  "devDependencies": {
+    "@types/cors": "^2.8.17",
+    "@types/express": "^5.0.1",
+    "@types/helmet": "^0.0.48",
+    "@types/node": "^22.14.0"
+  }
 }
