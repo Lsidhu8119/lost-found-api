@@ -3,6 +3,10 @@ import dotenv from 'dotenv';
 import cors from 'cors';
 import helmet from 'helmet';
 
+import lostItemRoutes from './api/v1/routes/lostItemRoutes';
+import foundItemRoutes from './api/v1/routes/foundItemRoutes';
+import claimRoutes from './api/v1/routes/claimRoutes';
+
 dotenv.config();
 
 const app = express();
@@ -20,5 +24,10 @@ app.get('/', (_req, res) => {
     version: 'v1',
   });
 });
+
+// API Routes
+app.use('/api/v1/lost-items', lostItemRoutes);
+app.use('/api/v1/found-items', foundItemRoutes);
+app.use('/api/v1/claims', claimRoutes);
 
 export default app;
