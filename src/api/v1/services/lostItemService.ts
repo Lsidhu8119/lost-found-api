@@ -1,5 +1,15 @@
-import { lostItems } from '../../../LostItems';
 import { v4 as uuid } from 'uuid';
+
+export const lostItems = [
+  {
+    id: '1',
+    name: 'Red Backpack',
+    category: 'bags',
+    location: 'Library',
+    description: 'Lost near bookshelf',
+    dateReported: '2024-03-25',
+  },
+];
 
 export const getAll = () => lostItems;
 

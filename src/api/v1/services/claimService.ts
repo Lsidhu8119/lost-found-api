@@ -1,5 +1,16 @@
-import { claims } from '../../../claims';
 import { v4 as uuid } from 'uuid';
+
+export const claims = [
+  {
+    id: '1',
+    itemId: 'abc123',
+    claimantName: 'Lovedeep Sidhu',
+    claimantEmail: 'Lovedeepsidhu@gmail.com',
+    justification: 'I can identify the engraving inside',
+    dateClaimed: '2024-03-27',
+  },
+];
+
 
 export const getAll = () => claims;
 

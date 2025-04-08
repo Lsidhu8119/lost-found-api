@@ -6,6 +6,7 @@ import helmet from 'helmet';
 import lostItemRoutes from './api/v1/routes/lostItemRoutes';
 import foundItemRoutes from './api/v1/routes/foundItemRoutes';
 import claimRoutes from './api/v1/routes/claimRoutes';
+import { setupSwagger } from './swagger';
 
 dotenv.config();
 
@@ -16,6 +17,9 @@ app.use(helmet());
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+// Swagger docs
+setupSwagger(app);
 
 // Base health check route
 app.get('/', (_req, res) => {
