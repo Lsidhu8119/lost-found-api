@@ -24,24 +24,29 @@ const router = express.Router();
  *     tags: [Claims]
  *     responses:
  *       200:
- *         description: List of all submitted claims
+ *         description: A list of all submitted claims
  *         content:
  *           application/json:
- *             example:
- *               - id: "1"
- *                 itemId: "abc123"
- *                 claimantName: "Subhpreet"
- *                 claimantEmail: "Subhpreet@gmail.com"
- *                 justification: "I can identify the Asus Laptop with black logo and my favourite sticker"
- *                 dateClaimed: "2025-04-10"
- *               - id: "2"
- *                 itemId: "abc999"
- *                 claimantName: "Amandeep Singh"
- *                 claimantEmail: "amandeepSingh@gmail.com"
- *                 justification: "I can identify my black iPhone 12 with a cracked back and a red cover"
- *                 dateClaimed: "2025-04-11"
+ *             schema:
+ *               type: array
+ *               items:
+ *                 type: object
+ *                 properties:
+ *                   id:
+ *                     type: string
+ *                   itemId:
+ *                     type: string
+ *                   claimantName:
+ *                     type: string
+ *                   claimantEmail:
+ *                     type: string
+ *                   justification:
+ *                     type: string
+ *                   dateClaimed:
+ *                     type: string
+ *                     format: date
+ *             
  */
-
 router.get('/', getAllClaims);
 
 /**

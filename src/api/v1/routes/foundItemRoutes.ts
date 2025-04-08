@@ -27,20 +27,29 @@ const router = express.Router();
  *         description: A list of found items
  *         content:
  *           application/json:
- *             example:
- *               - id: "1"
- *                 name: "Asus Laptop"
- *                 category: "electronics"
- *                 location: "Library"
- *                 description: "Asus laptop with a black logo and keyboard cover"
- *                 dateFound: "2025-04-08"
- *               - id: "2"
- *                 name: "iPhone 12"
- *                 category: "electronics"
- *                 location: "Cafeteria"
- *                 description: "Black iPhone 12 with cracked back and red case"
- *                 dateFound: "2025-04-10"
+ *             schema:
+ *               type: array
+ *               items:
+ *                 type: object
+ *                 properties:
+ *                   id:
+ *                     type: string
+ *                   name:
+ *                     type: string
+ *                   category:
+ *                     type: string
+ *                   location:
+ *                     type: string
+ *                   description:
+ *                     type: string
+ *                   dateFound:
+ *                     type: string
+ *                     format: date
+ *                   foundBy:
+ *                     type: string
  */
+
+
 router.get('/', getAllFoundItems);
 
 /**
@@ -74,6 +83,7 @@ router.get('/', getAllFoundItems);
  *             location: "Princess building 3rd Floor"
  *             description: "Black Cap with lakers Logo in front"
  *             dateFound: "2025-04-10"
+ *             foundBy: "Lovedeep Sidhu"
  *     responses:
  *       201:
  *         description: Found item reported successfully
@@ -121,6 +131,7 @@ router.post('/', validateFoundItem, createFoundItem);
  *             location: "Main Hall"
  *             description: "Updated - iPhone 12 cracked from back, found near Student Association"
  *             dateFound: "2025-04-11"
+ *             foundBy: Akashdeep Singh
  *     responses:
  *       200:
  *         description: Found item updated successfully
