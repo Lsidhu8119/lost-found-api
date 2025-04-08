@@ -20,7 +20,7 @@
         "*": ["*"]
       }
     },
-    "include": ["src/**/*", "test/**/*"],
+    "include": ["src/**/*", "test/**/*", "src/app.ts", "src/server.ts", "index.ts"],
     "exclude": ["node_modules", "dist"]
   }
   
