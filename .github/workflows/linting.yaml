@@ -1,7 +1,7 @@
 name: TypeScript Lint and Reviewdog
 
 on:
-  pull_request:
+  pull_request_target:
     branches:
       - main
       - development
