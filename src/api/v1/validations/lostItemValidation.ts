@@ -7,6 +7,7 @@ const schema = Joi.object({
   location: Joi.string().required(),
   description: Joi.string().required(),
   dateReported: Joi.string().isoDate().required(),
+  reportedBy: Joi.string().required()
 });
 
 export const validateLostItem = (req: Request, res: Response, next: NextFunction): void => {

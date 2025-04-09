@@ -8,7 +8,18 @@ export const lostItems = [
     location: 'Tim hortons',
     description: 'Lost at Tim Hortons while texting on mobile',
     dateReported: '2025-03-25',
+
   },
+  {
+    id: '2',
+    name: 'Fitbit Charge 5',
+    category: 'accessories',
+    location: 'Gym Locker Room',
+    description: 'Blue strap Fitbit left on the bench in locker area',
+    dateReported: '2025-04-09',
+    reportedBy: 'Sarbjit Singh'
+  }
+  
 ];
 
 export const getAll = () => lostItems;

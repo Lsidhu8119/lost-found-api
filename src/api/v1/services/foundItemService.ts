@@ -8,6 +8,7 @@ export const foundItems = [
     location: 'Tim Hortons',
     description: 'Asus Vivobook v15',
     dateFound: '2025-04-05',
+    foundBy: 'Navpreet'
   },
   {
     id: '2',
@@ -15,10 +16,10 @@ export const foundItems = [
     category: 'electronics',
     location: "Cafeteria",
     description: "Black iPhone 12 with cracked back and red case",
-    dateFound: "2025-04-10"
+    dateFound: "2025-04-10",
+    foundBy: "Akashdeep Singh"
   }
 ];
-
 
 export const getAll = () => foundItems;
 

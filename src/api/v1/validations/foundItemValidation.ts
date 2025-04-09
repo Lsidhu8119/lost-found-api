@@ -6,7 +6,8 @@ const foundItemSchema = Joi.object({
   category: Joi.string().required(),
   location: Joi.string().required(),
   description: Joi.string().required(),
-  dateFound: Joi.string().isoDate().required()
+  dateFound: Joi.string().isoDate().required(),
+  foundBy: Joi.string().required()
 });
 
 export const validateFoundItem = (
