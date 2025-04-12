@@ -86,12 +86,8 @@ router.get('/', getAllClaims);
  *         content:
  *           application/json:
  *             example:
- *               id: "2"
- *               itemId: "999"
- *               claimantName: Sukhtab Warya
- *               claimantEmail: Sukhtabwarya@gmail.com
- *               justification: I can identify my laptop was broken from left side
- *               dateClaimed: 2025-04-08
+ *               message: Claim submitted sucessfully
+ *               
  */
 router.post('/', validateClaim, createClaim);
 
