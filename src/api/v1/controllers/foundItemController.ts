@@ -6,10 +6,9 @@ export const getAllFoundItems = (_req: Request, res: Response) => {
 };
 
 export const createFoundItem = (req: Request, res: Response) => {
-  const item = service.create(req.body);
+  service.create(req.body);
   res.status(201).json({
     message: 'Found item reported successfully',
-    item,
   });
 };
 
@@ -18,7 +17,6 @@ export const updateFoundItem = (req: Request, res: Response) => {
   if (item) {
     res.status(200).json({
       message: 'Found item updated successfully',
-      item,
     });
   } else {
     res.status(404).json({ message: 'Found item not found with the given ID' });
