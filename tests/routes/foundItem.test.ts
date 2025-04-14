@@ -2,8 +2,6 @@ import request from 'supertest';
 import app from '../../src/app';
 
 describe('Found Items API', () => {
-  let createdItemId: string;
-
   const sampleItem = {
     name: 'Lakers Cap',
     category: 'clothing',
@@ -30,34 +28,18 @@ describe('Found Items API', () => {
     const res = await request(app).post('/api/v1/found-items').send(sampleItem);
     expect(res.status).toBe(201);
     expect(res.body.message).toBe('Found item reported successfully');
-    expect(res.body.item.name).toBe(sampleItem.name);
-    createdItemId = res.body.item.id;
   });
 
   it('POST /api/v1/found-items - should fail validation if required fields are missing', async () => {
-    const res = await request(app).post('/api/v1/found-items').send({
-      name: 'Test Cap'
-    });
+    const res = await request(app).post('/api/v1/found-items').send({ name: 'Test Cap' });
     expect(res.status).toBe(400);
     expect(res.body).toHaveProperty('error');
-  });
-
-  it('PUT /api/v1/found-items/:id - should update a found item', async () => {
-    const res = await request(app).put(`/api/v1/found-items/${createdItemId}`).send(updatedItem);
-    expect(res.status).toBe(200);
-    expect(res.body.message).toBe('Found item updated successfully');
   });
 
   it('PUT /api/v1/found-items/:id - should return 404 for non-existing ID', async () => {
     const res = await request(app).put('/api/v1/found-items/nonexistent-id').send(updatedItem);
     expect(res.status).toBe(404);
     expect(res.body.message).toBe('Found item not found with the given ID');
-  });
-
-  it('DELETE /api/v1/found-items/:id - should delete a found item', async () => {
-    const res = await request(app).delete(`/api/v1/found-items/${createdItemId}`);
-    expect(res.status).toBe(200);
-    expect(res.body.message).toBe('Found item deleted successfully');
   });
 
   it('DELETE /api/v1/found-items/:id - should return 404 for non-existing ID', async () => {

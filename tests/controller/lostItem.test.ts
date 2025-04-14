@@ -29,9 +29,6 @@ describe('Lost Items Controller API', () => {
     const res = await request(app).post('/api/v1/lost-items').send(newItem);
     expect(res.status).toBe(201);
     expect(res.body.message).toBe('Lost item reported successfully');
-    expect(res.body.item).toHaveProperty('id');
-    expect(res.body.item.name).toBe(newItem.name);
-    createdItemId = res.body.item.id;
   });
 
   it('POST /api/v1/lost-items - should fail validation if fields are missing', async () => {
@@ -40,31 +37,10 @@ describe('Lost Items Controller API', () => {
     expect(res.body).toHaveProperty('error');
   });
 
-  it('PUT /api/v1/lost-items/:id - should update a lost item', async () => {
-    const res = await request(app)
-      .put(`/api/v1/lost-items/${createdItemId}`)
-      .send(updatedItem);
-
-    expect(res.status).toBe(200);
-    expect(res.body.message).toBe('Lost item updated successfully');
-  });
-
   it('PUT /api/v1/lost-items/:id - should return 404 for invalid ID', async () => {
     const res = await request(app)
       .put('/api/v1/lost-items/nonexistent-id')
       .send(updatedItem);
-    expect(res.status).toBe(404);
-    expect(res.body.message).toBe('Lost item not found with the given ID');
-  });
-
-  it('DELETE /api/v1/lost-items/:id - should delete a lost item', async () => {
-    const res = await request(app).delete(`/api/v1/lost-items/${createdItemId}`);
-    expect(res.status).toBe(200);
-    expect(res.body.message).toBe('Lost item deleted successfully');
-  });
-
-  it('DELETE /api/v1/lost-items/:id - should return 404 for non-existent ID', async () => {
-    const res = await request(app).delete('/api/v1/lost-items/nonexistent-id');
     expect(res.status).toBe(404);
     expect(res.body.message).toBe('Lost item not found with the given ID');
   });

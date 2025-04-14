@@ -24,6 +24,6 @@ export const deleteClaim = (req: Request, res: Response) => {
   if (success) {
     res.status(200).json({ message: 'Claim deleted successfully' });
   } else {
-    res.status(404).json({ message: 'Claim not found with the given ID' });
+    res.status(404).json({ message: 'Claim not found' });
   }
 };
