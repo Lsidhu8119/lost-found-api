@@ -6,6 +6,7 @@ import {
   deleteClaim,
 } from '../controllers/claimController';
 import { validateClaim } from '../validations/claimValidation';
+import { verifyToken, checkAdmin } from '../middleware/authMiddleware';
 
 const router = express.Router();
 
@@ -89,7 +90,7 @@ router.get('/', getAllClaims);
  *               message: Claim submitted sucessfully
  *               
  */
-router.post('/', validateClaim, createClaim);
+router.post('/', verifyToken, validateClaim, createClaim);
 
 /**
  * @swagger
@@ -140,7 +141,7 @@ router.post('/', validateClaim, createClaim);
  *             example:
  *               message: Claim not found with the given ID
  */
-router.put('/:id', validateClaim, updateClaim);
+router.put('/:id', verifyToken, validateClaim, updateClaim);
 
 /**
  * @swagger
@@ -170,6 +171,6 @@ router.put('/:id', validateClaim, updateClaim);
  *             example:
  *               message: Claim not found with the given ID
  */
-router.delete('/:id', deleteClaim);
+router.delete('/:id', verifyToken, checkAdmin, deleteClaim);
 
 export default router;
