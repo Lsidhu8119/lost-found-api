@@ -8,13 +8,13 @@ describe('Claim Controller API', () => {
     itemId: 'abc123',
     claimantName: 'Subhpreet',
     claimantEmail: 'subhpreet@gmail.com',
-    justification: 'I can identify a unique sticker on it',
-    dateClaimed: '2025-04-10',
+    justification: 'I lost my bag near the cafeteria.',
+    dateClaimed: '2025-04-08',
   };
 
   const updatedClaim = {
     ...sampleClaim,
-    justification: 'It has a unique engraving on the inside panel.',
+    justification: 'Updated justification: bag had a red keychain',
   };
 
   it('GET /api/v1/claims - should return all claims', async () => {
@@ -41,5 +41,11 @@ describe('Claim Controller API', () => {
     const res = await request(app).put('/api/v1/claims/invalid-id').send(updatedClaim);
     expect(res.status).toBe(404);
     expect(res.body.message).toBe('Claim not found with the given ID');
+  });
+
+  it('DELETE /api/v1/claims/:id - should return 404 for non-existent claim', async () => {
+    const res = await request(app).delete('/api/v1/claims/nonexistent-id');
+    expect(res.status).toBe(404);
+    expect(res.body.message).toBe('Claim not found');
   });
 });
