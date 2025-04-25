@@ -1,45 +1,39 @@
+import { db } from '../config/firebase';
 import { v4 as uuid } from 'uuid';
 
-export const lostItems = [
-  {
-    id: '1',
-    name: 'Black Asus Vivobook',
-    category: 'electronics',
-    location: 'Tim hortons',
-    description: 'Lost at Tim Hortons while texting on mobile',
-    dateReported: '2025-03-25',
+const collection = db.collection('lost-items');
 
-  },
-  {
-    id: '2',
-    name: 'Fitbit Charge 5',
-    category: 'accessories',
-    location: 'Gym Locker Room',
-    description: 'Blue strap Fitbit left on the bench in locker area',
-    dateReported: '2025-04-09',
-    reportedBy: 'Sarbjit Singh'
-  }
-  
-];
+// Get all lost items
+export const getAll = async () => {
+  const snapshot = await collection.get();
+  return snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+};
 
-export const getAll = () => lostItems;
-
-export const create = (data: any) => {
+// Create a new lost item
+export const create = async (data: any) => {
   const newItem = { ...data, id: uuid() };
-  lostItems.push(newItem);
+  await collection.doc(newItem.id).set(newItem);
   return newItem;
 };
 
-export const update = (id: string, data: any) => {
-  const index = lostItems.findIndex(item => item.id === id);
-  if (index === -1) return null;
-  lostItems[index] = { ...lostItems[index], ...data };
-  return lostItems[index];
+// Update an existing lost item
+export const update = async (id: string, data: any) => {
+  const docRef = collection.doc(id);
+  const doc = await docRef.get();
+  if (!doc.exists) {
+    return null;
+  }
+  await docRef.update(data);
+  return { id, ...data };
 };
 
-export const remove = (id: string) => {
-  const index = lostItems.findIndex(item => item.id === id);
-  if (index === -1) return false;
-  lostItems.splice(index, 1);
+// Delete a lost item
+export const remove = async (id: string) => {
+  const docRef = collection.doc(id);
+  const doc = await docRef.get();
+  if (!doc.exists) {
+    return false;
+  }
+  await docRef.delete();
   return true;
 };

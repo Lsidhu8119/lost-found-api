@@ -1,0 +1,702 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Lost & Found API For Red River College",
+    "version": "1.0.0",
+    "description": "API for managing lost, found items, and claims at Red River College"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3000/api/v1"
+    }
+  ],
+  "paths": {
+    "/api/v1/claims": {
+      "get": {
+        "summary": "Get all claims",
+        "tags": [
+          "Claims"
+        ],
+        "responses": {
+          "200": {
+            "description": "A list of all submitted claims",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "string"
+                      },
+                      "itemId": {
+                        "type": "string"
+                      },
+                      "claimantName": {
+                        "type": "string"
+                      },
+                      "claimantEmail": {
+                        "type": "string"
+                      },
+                      "justification": {
+                        "type": "string"
+                      },
+                      "dateClaimed": {
+                        "type": "string",
+                        "format": "date"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Submit a new claim",
+        "tags": [
+          "Claims"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "itemId",
+                  "claimantName",
+                  "claimantEmail",
+                  "justification",
+                  "dateClaimed"
+                ],
+                "properties": {
+                  "itemId": {
+                    "type": "string"
+                  },
+                  "claimantName": {
+                    "type": "string"
+                  },
+                  "claimantEmail": {
+                    "type": "string"
+                  },
+                  "justification": {
+                    "type": "string"
+                  },
+                  "dateClaimed": {
+                    "type": "string",
+                    "format": "date"
+                  }
+                }
+              },
+              "example": {
+                "itemId": "999",
+                "claimantName": "Sukhtab Warya",
+                "claimantEmail": "Sukhtabwarya@gmail.com",
+                "justification": "I can identify my laptop was broken from left side",
+                "dateClaimed": "2025-04-08"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Claim submitted successfully",
+            "content": {
+              "application/json": {
+                "example": {
+                  "message": "Claim submitted sucessfully"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/claims/{id}": {
+      "put": {
+        "summary": "Update a claim",
+        "tags": [
+          "Claims"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "ID of the claim to update"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "claimantName": {
+                    "type": "string"
+                  },
+                  "claimantEmail": {
+                    "type": "string"
+                  },
+                  "justification": {
+                    "type": "string"
+                  },
+                  "dateClaimed": {
+                    "type": "string",
+                    "format": "date"
+                  }
+                }
+              },
+              "example": {
+                "itemId": "abc123",
+                "claimantName": "Subhpreet",
+                "claimantEmail": "Subhpreet@gmail.com",
+                "justification": "My laptop was not only broken from left side but also had a keyboard cover",
+                "dateClaimed": "2025-04-11"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Claim updated successfully",
+            "content": {
+              "application/json": {
+                "example": {
+                  "message": "Claim updated sucessfully"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Claim not found",
+            "content": {
+              "application/json": {
+                "example": {
+                  "message": "Claim not found with the given ID"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete a claim",
+        "tags": [
+          "Claims"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "ID of the claim to delete",
+            "example": 1
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Claim deleted successfully",
+            "content": {
+              "application/json": {
+                "example": {
+                  "message": "Claim deleted successfully"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Claim not found",
+            "content": {
+              "application/json": {
+                "example": {
+                  "message": "Claim not found with the given ID"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/found-items": {
+      "get": {
+        "summary": "Get all found items",
+        "tags": [
+          "FoundItems"
+        ],
+        "responses": {
+          "200": {
+            "description": "A list of found items",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "string"
+                      },
+                      "name": {
+                        "type": "string"
+                      },
+                      "category": {
+                        "type": "string"
+                      },
+                      "location": {
+                        "type": "string"
+                      },
+                      "description": {
+                        "type": "string"
+                      },
+                      "dateFound": {
+                        "type": "string",
+                        "format": "date"
+                      },
+                      "foundBy": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Report a found item",
+        "tags": [
+          "FoundItems"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "name",
+                  "category",
+                  "location",
+                  "description",
+                  "dateFound"
+                ],
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "category": {
+                    "type": "string"
+                  },
+                  "location": {
+                    "type": "string"
+                  },
+                  "description": {
+                    "type": "string"
+                  },
+                  "dateFound": {
+                    "type": "string",
+                    "format": "date"
+                  }
+                }
+              },
+              "example": {
+                "name": "Lakers Cap",
+                "category": "clothing",
+                "location": "Princess building 3rd Floor",
+                "description": "Black Cap with lakers Logo in front",
+                "dateFound": "2025-04-10",
+                "foundBy": "Lovedeep Sidhu"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Found item reported successfully",
+            "content": {
+              "application/json": {
+                "example": {
+                  "message": "Found item reported successfully"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/found-items/{id}": {
+      "put": {
+        "summary": "Update a found item by ID",
+        "tags": [
+          "FoundItems"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "ID of the found item to update"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "category": {
+                    "type": "string"
+                  },
+                  "location": {
+                    "type": "string"
+                  },
+                  "description": {
+                    "type": "string"
+                  },
+                  "dateFound": {
+                    "type": "string",
+                    "format": "date"
+                  }
+                }
+              },
+              "example": {
+                "name": "iPhone 12",
+                "category": "electronics",
+                "location": "Main Hall",
+                "description": "Updated - iPhone 12 cracked from back, found near Student Association",
+                "dateFound": "2025-04-11",
+                "foundBy": "Akashdeep Singh"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Found item updated successfully",
+            "content": {
+              "application/json": {
+                "example": {
+                  "message": "Found item updated successfully"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Item not found",
+            "content": {
+              "application/json": {
+                "example": {
+                  "message": "Found item not found with the given ID"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete a found item by ID",
+        "tags": [
+          "FoundItems"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "ID of the found item to delete"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Found item deleted successfully",
+            "content": {
+              "application/json": {
+                "example": {
+                  "message": "Found item deleted successfully"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found",
+            "content": {
+              "application/json": {
+                "example": {
+                  "message": "Found item not found with the given ID"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/lost-items": {
+      "get": {
+        "summary": "Get all lost items",
+        "tags": [
+          "LostItems"
+        ],
+        "responses": {
+          "200": {
+            "description": "A list of lost items",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "string"
+                      },
+                      "name": {
+                        "type": "string"
+                      },
+                      "category": {
+                        "type": "string"
+                      },
+                      "location": {
+                        "type": "string"
+                      },
+                      "description": {
+                        "type": "string"
+                      },
+                      "dateReported": {
+                        "type": "string",
+                        "format": "date"
+                      },
+                      "reportedBy": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Report a new lost item",
+        "tags": [
+          "LostItems"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "name",
+                  "category",
+                  "location",
+                  "description",
+                  "dateReported",
+                  "reportedBy"
+                ],
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "category": {
+                    "type": "string"
+                  },
+                  "location": {
+                    "type": "string"
+                  },
+                  "description": {
+                    "type": "string"
+                  },
+                  "dateReported": {
+                    "type": "string",
+                    "format": "date"
+                  },
+                  "reportedBy": {
+                    "type": "string"
+                  }
+                }
+              },
+              "example": {
+                "name": "Black Leather jacket",
+                "category": "clothing",
+                "location": "Elgin Building main floor",
+                "description": "Black leather jacket with spikes on Soulders",
+                "dateReported": "2025-04-10",
+                "reportedBy": "Lovedeep Sidhu"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Lost item reported successfully",
+            "content": {
+              "application/json": {
+                "example": {
+                  "message": "Lost item reported successfully"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/lost-items/{id}": {
+      "put": {
+        "summary": "Update a lost item by ID",
+        "tags": [
+          "LostItems"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "ID of the lost item to update"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "category": {
+                    "type": "string"
+                  },
+                  "location": {
+                    "type": "string"
+                  },
+                  "description": {
+                    "type": "string"
+                  },
+                  "dateReported": {
+                    "type": "string",
+                    "format": "date"
+                  },
+                  "reportedBy": {
+                    "type": "string"
+                  }
+                }
+              },
+              "example": {
+                "name": "iPhone 12",
+                "category": "electronics",
+                "location": "Main Hall",
+                "description": "Lost when playing cards with others",
+                "dateReported": "2025-04-11",
+                "reportedBy": "Amandeep Singh"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Lost item updated successfully",
+            "content": {
+              "application/json": {
+                "example": {
+                  "message": "Lost item updated successfully"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Lost item not found",
+            "content": {
+              "application/json": {
+                "example": {
+                  "message": "Lost item not found with the given ID"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete a lost item by ID",
+        "tags": [
+          "LostItems"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "ID of the lost item to delete"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Lost item deleted successfully",
+            "content": {
+              "application/json": {
+                "example": {
+                  "message": "Lost item deleted successfully"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Lost item not found",
+            "content": {
+              "application/json": {
+                "example": {
+                  "message": "Lost item not found with the given ID"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {},
+  "tags": [
+    {
+      "name": "Claims",
+      "description": "Endpoints for item claims"
+    },
+    {
+      "name": "FoundItems",
+      "description": "Endpoints for managing found items"
+    },
+    {
+      "name": "LostItems",
+      "description": "Endpoints for managing lost items"
+    }
+  ]
+}

@@ -2,8 +2,6 @@ import request from 'supertest';
 import app from '../../src/app';
 
 describe('Claim Controller API', () => {
-  let createdClaimId: string;
-
   const sampleClaim = {
     itemId: 'abc123',
     claimantName: 'Subhpreet',
@@ -30,9 +28,7 @@ describe('Claim Controller API', () => {
   });
 
   it('POST /api/v1/claims - should fail with missing fields', async () => {
-    const res = await request(app).post('/api/v1/claims').send({
-      claimantName: 'Amandeep',
-    });
+    const res = await request(app).post('/api/v1/claims').send({ claimantName: 'Amandeep' });
     expect(res.status).toBe(400);
     expect(res.body).toHaveProperty('error');
   });
@@ -41,5 +37,11 @@ describe('Claim Controller API', () => {
     const res = await request(app).put('/api/v1/claims/invalid-id').send(updatedClaim);
     expect(res.status).toBe(404);
     expect(res.body.message).toBe('Claim not found with the given ID');
+  });
+
+  it('DELETE /api/v1/claims/:id - should return 404 for non-existent claim', async () => {
+    const res = await request(app).delete('/api/v1/claims/nonexistent-id');
+    expect(res.status).toBe(404);
+    expect(res.body.message).toBe('Claim not found');
   });
 });

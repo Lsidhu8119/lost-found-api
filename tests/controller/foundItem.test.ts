@@ -2,8 +2,6 @@ import request from 'supertest';
 import app from '../../src/app';
 
 describe('Found Items Controller API', () => {
-  let createdItemId: string;
-
   const sampleItem = {
     name: 'Lakers Cap',
     category: 'clothing',
@@ -31,7 +29,7 @@ describe('Found Items Controller API', () => {
     expect(res.body.message).toBe('Found item reported successfully');
   });
 
-  it('POST /api/v1/found-items - should fail validation if fields are missing', async () => {
+  it('POST /api/v1/found-items - should fail validation if required fields are missing', async () => {
     const res = await request(app).post('/api/v1/found-items').send({ name: 'Cap' });
     expect(res.status).toBe(400);
     expect(res.body).toHaveProperty('error');
@@ -41,6 +39,12 @@ describe('Found Items Controller API', () => {
     const res = await request(app)
       .put('/api/v1/found-items/nonexistent-id')
       .send(updatedItem);
+    expect(res.status).toBe(404);
+    expect(res.body.message).toBe('Found item not found with the given ID');
+  });
+
+  it('DELETE /api/v1/found-items/:id - should return 404 for invalid ID', async () => {
+    const res = await request(app).delete('/api/v1/found-items/nonexistent-id');
     expect(res.status).toBe(404);
     expect(res.body.message).toBe('Found item not found with the given ID');
   });

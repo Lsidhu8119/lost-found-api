@@ -1,19 +1,21 @@
 import { Request, Response } from 'express';
 import * as service from '../services/foundItemService';
 
-export const getAllFoundItems = (_req: Request, res: Response) => {
-  res.json(service.getAll());
+export const getAllFoundItems = async (_req: Request, res: Response) => {
+  const items = await service.getAll();
+  res.json(items);
 };
 
-export const createFoundItem = (req: Request, res: Response) => {
-  service.create(req.body);
+export const createFoundItem = async (req: Request, res: Response) => {
+  const item = await service.create(req.body);
   res.status(201).json({
     message: 'Found item reported successfully',
+    item,
   });
 };
 
-export const updateFoundItem = (req: Request, res: Response) => {
-  const item = service.update(req.params.id, req.body);
+export const updateFoundItem = async (req: Request, res: Response) => {
+  const item = await service.update(req.params.id, req.body);
   if (item) {
     res.status(200).json({
       message: 'Found item updated successfully',
@@ -23,8 +25,8 @@ export const updateFoundItem = (req: Request, res: Response) => {
   }
 };
 
-export const deleteFoundItem = (req: Request, res: Response) => {
-  const success = service.remove(req.params.id);
+export const deleteFoundItem = async (req: Request, res: Response) => {
+  const success = await service.remove(req.params.id);
   if (success) {
     res.status(200).json({ message: 'Found item deleted successfully' });
   } else {

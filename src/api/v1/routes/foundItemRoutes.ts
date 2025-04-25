@@ -6,6 +6,7 @@ import {
   deleteFoundItem,
 } from '../controllers/foundItemController';
 import { validateFoundItem } from '../validations/foundItemValidation';
+import { verifyToken, checkAdmin } from '../middleware/authMiddleware';
 
 const router = express.Router();
 
@@ -92,7 +93,7 @@ router.get('/', getAllFoundItems);
  *             example:
  *               message: "Found item reported successfully"
  */
-router.post('/', validateFoundItem, createFoundItem);
+router.post('/', verifyToken, validateFoundItem, createFoundItem);
 
 /**
  * @swagger
@@ -146,7 +147,7 @@ router.post('/', validateFoundItem, createFoundItem);
  *             example:
  *               message: "Found item not found with the given ID"
  */
-router.put('/:id', validateFoundItem, updateFoundItem);
+router.put('/:id', verifyToken, validateFoundItem, updateFoundItem);
 
 /**
  * @swagger
@@ -175,6 +176,6 @@ router.put('/:id', validateFoundItem, updateFoundItem);
  *             example:
  *               message: "Found item not found with the given ID"
  */
-router.delete('/:id', deleteFoundItem);
+router.delete('/:id', verifyToken, checkAdmin, deleteFoundItem);
 
 export default router;

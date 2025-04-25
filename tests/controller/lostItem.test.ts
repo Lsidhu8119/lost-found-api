@@ -2,8 +2,6 @@ import request from 'supertest';
 import app from '../../src/app';
 
 describe('Lost Items Controller API', () => {
-  let createdItemId: string;
-
   const newItem = {
     name: 'Wallet',
     category: 'accessories',
@@ -41,6 +39,12 @@ describe('Lost Items Controller API', () => {
     const res = await request(app)
       .put('/api/v1/lost-items/nonexistent-id')
       .send(updatedItem);
+    expect(res.status).toBe(404);
+    expect(res.body.message).toBe('Lost item not found with the given ID');
+  });
+
+  it('DELETE /api/v1/lost-items/:id - should return 404 for non-existing ID', async () => {
+    const res = await request(app).delete('/api/v1/lost-items/nonexistent-id');
     expect(res.status).toBe(404);
     expect(res.body.message).toBe('Lost item not found with the given ID');
   });

@@ -6,6 +6,7 @@ import {
   deleteLostItem,
 } from '../controllers/lostItemController';
 import { validateLostItem } from '../validations/lostItemValidation';
+import { verifyToken, checkAdmin } from '../middleware/authMiddleware';
 
 const router = express.Router();
 
@@ -93,7 +94,7 @@ router.get('/', getAllLostItems);
  *             example:
  *               message: "Lost item reported successfully"
  */
-router.post('/', validateLostItem, createLostItem);
+router.post('/', verifyToken, validateLostItem, createLostItem);
 
 /**
  * @swagger
@@ -149,7 +150,7 @@ router.post('/', validateLostItem, createLostItem);
  *             example:
  *               message: "Lost item not found with the given ID"
  */
-router.put('/:id', validateLostItem, updateLostItem);
+router.put('/:id', verifyToken, validateLostItem, updateLostItem);
 
 /**
  * @swagger
@@ -178,6 +179,6 @@ router.put('/:id', validateLostItem, updateLostItem);
  *             example:
  *               message: "Lost item not found with the given ID"
  */
-router.delete('/:id', deleteLostItem);
+router.delete('/:id',verifyToken, checkAdmin, deleteLostItem);
 
 export default router;

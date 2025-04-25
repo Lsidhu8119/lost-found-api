@@ -1,44 +1,40 @@
+// src/api/v1/services/foundItemService.ts
+import { db } from '../config/firebase';
 import { v4 as uuid } from 'uuid';
 
-export const foundItems = [
-  {
-    id: '1',
-    name: 'Black Asus Vivobook',
-    category: 'electronics',
-    location: 'Tim Hortons',
-    description: 'Asus Vivobook v15',
-    dateFound: '2025-04-05',
-    foundBy: 'Navpreet'
-  },
-  {
-    id: '2',
-    name: 'iPhone 12',
-    category: 'electronics',
-    location: "Cafeteria",
-    description: "Black iPhone 12 with cracked back and red case",
-    dateFound: "2025-04-10",
-    foundBy: "Akashdeep Singh"
-  }
-];
+const collection = db.collection('found-items');
 
-export const getAll = () => foundItems;
+// Get all found items
+export const getAll = async () => {
+  const snapshot = await collection.get();
+  return snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+};
 
-export const create = (data: any) => {
+// Create a new found item
+export const create = async (data: any) => {
   const newItem = { ...data, id: uuid() };
-  foundItems.push(newItem);
+  await collection.doc(newItem.id).set(newItem);
   return newItem;
 };
 
-export const update = (id: string, data: any) => {
-  const index = foundItems.findIndex(item => item.id === id);
-  if (index === -1) return null;
-  foundItems[index] = { ...foundItems[index], ...data };
-  return foundItems[index];
+// Update an existing found item
+export const update = async (id: string, data: any) => {
+  const docRef = collection.doc(id);
+  const doc = await docRef.get();
+  if (!doc.exists) {
+    return null;
+  }
+  await docRef.update(data);
+  return { id, ...data };
 };
 
-export const remove = (id: string) => {
-  const index = foundItems.findIndex(item => item.id === id);
-  if (index === -1) return false;
-  foundItems.splice(index, 1);
+// Remove (delete) a found item
+export const remove = async (id: string) => {
+  const docRef = collection.doc(id);
+  const doc = await docRef.get();
+  if (!doc.exists) {
+    return false;
+  }
+  await docRef.delete();
   return true;
 };
