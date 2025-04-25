@@ -2,19 +2,17 @@ import request from 'supertest';
 import app from '../../src/app';
 
 describe('Claim Controller API', () => {
-  let createdClaimId: string;
-
   const sampleClaim = {
     itemId: 'abc123',
     claimantName: 'Subhpreet',
     claimantEmail: 'subhpreet@gmail.com',
-    justification: 'I lost my bag near the cafeteria.',
-    dateClaimed: '2025-04-08',
+    justification: 'I can identify a unique sticker on it',
+    dateClaimed: '2025-04-10',
   };
 
   const updatedClaim = {
     ...sampleClaim,
-    justification: 'Updated justification: bag had a red keychain',
+    justification: 'It has a unique engraving on the inside panel.',
   };
 
   it('GET /api/v1/claims - should return all claims', async () => {
@@ -30,9 +28,7 @@ describe('Claim Controller API', () => {
   });
 
   it('POST /api/v1/claims - should fail with missing fields', async () => {
-    const res = await request(app).post('/api/v1/claims').send({
-      claimantName: 'Amandeep',
-    });
+    const res = await request(app).post('/api/v1/claims').send({ claimantName: 'Amandeep' });
     expect(res.status).toBe(400);
     expect(res.body).toHaveProperty('error');
   });

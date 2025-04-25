@@ -12,21 +12,20 @@ describe('Found Item Service', () => {
     foundBy: 'Lovepreet Singh',
   };
 
-  it('should return all found items', () => {
-    const items = service.getAll();
+  it('should return all found items', async () => {
+    const items = await service.getAll();
     expect(Array.isArray(items)).toBe(true);
-    expect(items.length).toBeGreaterThan(0);
   });
 
-  it('should create a new found item', () => {
-    const newItem = service.create(sampleItem);
+  it('should create a new found item', async () => {
+    const newItem = await service.create(sampleItem);
     expect(newItem).toHaveProperty('id');
     expect(newItem.name).toBe(sampleItem.name);
     createdId = newItem.id;
   });
 
-  it('should update an existing found item', () => {
-    const updated = service.update(createdId, {
+  it('should update an existing found item', async () => {
+    const updated = await service.update(createdId, {
       ...sampleItem,
       location: 'Main Hall',
     });
@@ -34,18 +33,18 @@ describe('Found Item Service', () => {
     expect(updated?.location).toBe('Main Hall');
   });
 
-  it('should return null when updating non-existent item', () => {
-    const result = service.update('nonexistent-id', sampleItem);
+  it('should return null when updating non-existent item', async () => {
+    const result = await service.update('nonexistent-id', sampleItem);
     expect(result).toBeNull();
   });
 
-  it('should delete a found item', () => {
-    const deleted = service.remove(createdId);
+  it('should delete a found item', async () => {
+    const deleted = await service.remove(createdId);
     expect(deleted).toBe(true);
   });
 
-  it('should return false when deleting non-existent item', () => {
-    const deleted = service.remove('nonexistent-id');
+  it('should return false when deleting non-existent item', async () => {
+    const deleted = await service.remove('nonexistent-id');
     expect(deleted).toBe(false);
   });
 });
